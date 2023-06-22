@@ -1,37 +1,46 @@
+% !TeX root = main.tex
+
 \begin{titlepage}
-  \centering
+	\vspace*{-6em}
+	\hspace{-3.5em}
+	\centering
+	\includegraphics[scale=0.3]{logos/ude.jpg}
+	\vspace*{\fill}
+			
+	\begin{center}
+		{\Large\bfseries \whatIsIt}\\
+		\vspace*{\fill}
+		%Thesis Title\\
+		%\vspace*{\fill}
+		{\huge\bfseries \title} \\
+		\vspace{0.5cm}
+		{\large\bfseries \subtitle} \\
+		\vspace*{\fill}
+		\fakultaet\\
+		University of Duisburg-Essen\\
+		%\vspace*{\fill}
+		%\\
+		\vspace*{\fill}
+		\author \\
+		%\addrLineEins\\
+		\addrLineZwei\\
+		Matriculation Number: \matrikelNr \\
+  		\date \\
+	\end{center}
+	
+	\vspace*{\fill}
+	
+	\begin{tabular}{|l|}
+            \hline
+		Supervisor: \betreuer\\
+		Second Reviewer: \ersterGutachter\\
 
-  \IfFileExists{logos/tum-\fg.pdf}{%
-    \includegraphics[height=20mm]{logos/tum-\fg.pdf}
-  }{%
-    \vspace*{20mm}
-  }
+		External Supervisor: \externalSupervisor\\
+		External Daily Supervisor: \externalDailySupervisor\\
+            \dept  \\
+		\researchgroup \\
 
-  \vspace{5mm}
-  {\huge\MakeUppercase{School of \getSchool{} --- \getFaculty{}} \par}
-
-  \vspace{5mm}
-  {\large\MakeUppercase{\getUniversity{}} \par}
-
-  \vspace{20mm}
-  {\Large \getDoctype{} in \getDegree{} \par}
-
-  \vspace{15mm}
-  {\huge\bfseries \getTitle{} \par}
-
-  \vspace{10mm}
-  {\huge\bfseries \foreignlanguage{ngerman}{\getTitleGer{}} \par}
-
-  \vspace{15mm}
-  \begin{tabular}{l l}
-    Author:          & \getAuthor{}         \\
-    Supervisor:      & \getSupervisor{}     \\
-    Advisor:         & \getAdvisor{}        \\
-    Submission Date: & \getSubmissionDate{} \\
-  \end{tabular}
-
-  \IfFileExists{logos/faculty-\fg.pdf}{%
-    \vfill{}
-    \includegraphics[height=20mm]{logos/faculty-\fg.pdf}
-  }{}
+  \hline
+	\end{tabular}
+	
 \end{titlepage}

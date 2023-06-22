@@ -1,5 +1,14 @@
 \PassOptionsToPackage{table,svgnames,dvipsnames}{xcolor}
 
+\usepackage{geometry}
+    \geometry{
+        a4paper,
+        width=150mm,
+        top=25mm,
+        bottom=25mm,
+        bindingoffset=6mm
+        }
+
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage[sc]{mathpazo}
@@ -8,15 +17,18 @@
 \usepackage[%
   backend=biber,
   url=false,
-  style=alphabetic,
+  style=ieee,
   maxnames=4,
   minnames=3,
   maxbibnames=99,
   giveninits,
   uniquename=init]{biblatex} % TODO: adapt citation style
+
+% \usepackage[colorlinks=true, allcolors=blue]{hyperref} % Add this line for hyperlinking
 \usepackage{graphicx}
-\usepackage{scrhack} % necessary for listings package
+%\usepackage{scrhack} % necessary for listings package
 \usepackage{listings}
+\usepackage{subcaption}
 \usepackage{lstautogobble}
 \usepackage{tikz}
 \usepackage{pgfplots}
@@ -26,13 +38,48 @@
 \usepackage{caption}
 \usepackage[printonlyused]{acronym}
 \usepackage[hidelinks]{hyperref} % hidelinks removes colored boxes around references and links
-\AtBeginDocument{%
+\AtBeginDocument{
 	\hypersetup{
 		pdftitle=\getTitle,
 		pdfauthor=\getAuthor,
 	}
 }
 \usepackage{ifthen}
+\usepackage{xcolor}
+\definecolor{headergray}{RGB}{150,150,150} % Define a grayish color
+
+\usepackage{graphicx}
+    \graphicspath{{./figures/}}
+
+
+  \usepackage{fancyhdr}
+    \pagestyle{fancy}
+    \setlength{\headheight}{15pt}
+    \fancyhead{}
+    \fancyfoot{}
+    
+    % Header
+    \fancyhead[L]{\small\color{headergray}\leftmark} % Chapter name on the top left
+    \fancyhead[R]{\small\color{headergray}\author} % Author name on the top right
+    \renewcommand{\headrulewidth}{0.4pt}
+    
+    % Footer
+    \fancyfoot[C]{\footnotesize\color{headergray}\emph{\getTitle}} % Title on the bottom center in italics
+    \fancyfoot[LE,RO]{\small\color{headergray} Page \thepage} % Page number on the bottom right
+    \renewcommand{\footrulewidth}{0.4pt}
+    
+    \fancypagestyle{plain}{
+      \fancyhf{} % Clear header/footer
+      \fancyfoot[C]{\footnotesize\color{headergray}\emph{\getTitle}} % Title on the bottom center in italics
+      \fancyfoot[LE,RO]{\small\color{headergray} Page \thepage} % Page number on the bottom right
+      \renewcommand{\headrulewidth}{0pt} % Remove header rule
+      \renewcommand{\footrulewidth}{0.4pt} % Add footer rule
+    }
+    
+    % Adjust the spacing between the header/footer content and the rule lines
+    \setlength{\headsep}{22pt}
+    \setlength{\footskip}{20pt}
+    
 
 \addto\extrasamerican{
 	\def\lstnumberautorefname{Line}
