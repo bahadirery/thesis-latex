@@ -1,0 +1,20 @@
+% !TeX root = ../main.tex
+% Now, make the conclusions, guidelines and list the main contributions of the thesis.
+
+In the master's thesis, the primary focus was on addressing the reproducibility challenge prevalent in deep learning, with a specific emphasis on computer vision tasks. A unique aspect of the research was the isolation of CUDA randomness, a factor that often introduces variability in deep learning experiments. To provide a comprehensive understanding, a total of 180 training experiments were conducted across three distinct datasets, each representing different domains. The results of these experiments were meticulously analyzed, presented, and discussed to shed light on the complexities of reproducibility in the context of deep learning.\\
+
+We have reached the following key findings:
+
+\begin{enumerate}
+    \item \textbf{Achievement of Full Determinism}: By employing fixed seed values, variability is mitigated, constraining randomness. Nevertheless, the randomness introduced by CUDA execution can still influence results significantly. Our experiments demonstrate that with deterministic settings and controlled conditions, complete determinism in deep learning experiments is attainable.
+    
+    \item \textbf{Determinism vs. Non-determinism Tradeoffs}: Our empirical studies indicate that deterministic execution introduces minimal computational overhead, making its adoption practically advantageous. However, in certain scenarios, a performance decline of up to 2\% was noted, which is significant for specific applications. The decision to employ full determinism should be based on the specific requirements and anticipated outcomes of the model.
+    
+    \item \textbf{Domain Specificity}: The influence of randomness during training varies with the dataset's domain. Specifically, the Breast Cancer Dataset exhibited a pronounced effect of randomness, underscoring the reproducibility challenges in medical imaging.
+    
+    \item \textbf{Role of Optimizers}: Different optimizers display distinct stability levels when confronted with randomness from CUDA execution. Notably, the ADAM optimizer showed reduced stability, indicating heightened sensitivity to such randomness.
+    
+    \item \textbf{Analysis of Model Weights}: While performance metric variations are insightful, they might not offer a holistic view of the randomness in the training. Analyzing the model's trained weights can yield deeper insights into the randomness's effect on training.
+    
+    \item \textbf{Metric Sensitivity}: The metrics' susceptibility to randomness might depend on the dataset's domain. For instance, in the breast cancer study, the F1-score was more vulnerable to randomness compared to the AUC score. Therefore, when selecting and reporting evaluation metrics, the metrics' sensitivity to randomness should be considered.
+\end{enumerate}

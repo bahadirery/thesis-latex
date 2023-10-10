@@ -1,3 +1,12 @@
 \chapter{\abstractname}
 
-%TODO: Abstract
+
+\textit{Purpose}: Reproducibility stands as a cornerstone in scientific research. However, in the realm of computer vision, achieving consistent results is challenging due to various factors, with CUDA-induced randomness being a prominent one. Despite CUDA's capability to facilitate high-performance execution of computer vision algorithms on GPUs, it lacks determinism across multiple runs. This thesis delves into the aftermath of CUDA-induced variability on reproducibility to understand its nature better, focusing on diverse datasets: CIFAR for image classification, a dataset pertaining to civil engineering for concrete crack detection, and a medical dataset centered on breast cancer diagnosis.\\
+
+\textit{Methods}: To discern the influence of CUDA randomness, we thoroughly controlled other potential variability sources, including weight initialization, data shuffling, and data augmentation. This allowed us to exclusively study the effects of CUDA randomness by comparing outcomes over several runs, both in deterministic and non-deterministic CUDA settings. Additionally, an in-depth analysis of model weights was conducted to offer insights into the internal workings of the models, further corroborating our findings.\\
+
+\textit{Results}: Our empirical investigations revealed that while achieving full determinism is feasible, it occasionally comes at the expense of performance. Interestingly, model sensitivity to CUDA randomness varied with different configurations and settings. Upholding the principles of responsible research, we also delineate the environmental implications of our experiments, emphasizing the associated carbon footprint.\\
+
+\textit{Conclusion}: This thesis provides a rigorous evaluation of CUDA randomness and its implications on various computer vision applications. By doing so, it contributes to the advancement of reproducible research in computer vision by providing a systematic and comprehensive evaluation of CUDA randomness and its effects on different computer vision tasks and domains. Furthermore, we give recommendations to guide future research endeavors. The complex relationship between GPU utilization and the inherent randomness in Deep Learning requires further exploration.\\
+
+\textbf{Keywords: Reproducibility, Deep Learning, Computer Vision, Randomness, Determinism}

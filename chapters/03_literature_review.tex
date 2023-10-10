@@ -1,0 +1,50 @@
+
+This empirical study examines reproducibility and randomness in the AI field. In our review of existing literature, we found limited work that allows for a direct comparison with our results. Nevertheless, a number of relevant studies have addressed aspects of these topics, offering insights and methodologies that are pertinent to our investigation. Below, we provide a concise overview of these works, setting the stage for our own contributions.\\
+
+Goodman et al.~\cite{goodman:2016ca} defined the term reproducibility that we use in this study.
+Raste et al.~\cite{Raste} conducted an empirical study to investigate the impact of Randomness 
+in several machine learning algorithms. They concluded that transparency in used methods and
+datasets is a crucial part to create reproducible results. Chen et al.~\cite{chenetal} listed the challenges 
+to reproduce any result of a deep learning model. They emphasized the importance of the reproducible
+DL models. They also introduced their approach and solution to mitigate the challenges.
+Furthermore, they supported their approach with case studies and presented guidelines. Scarpadane et al.~\cite{scardapane2017randomness} gave an overview of randomness and how they applied in deep learning research.
+Dirnagl et al.~\cite{dirnagl2019rethinking} introduced a different 
+perspective on research reproducibility in different research areas.
+It can be understood that in the past years,
+researchers have been investigating reproducibility and randomness from different perspectives. 
+There are guidelines on how to achieve reproducibility. Some studies emphasize the importance
+of the problem. Enhancing the transparency, accountability, and trustworthiness of AI models requires a focus on Reproducibility in AI research. In this case, this research area aligns with the principles of explainable artificial intelligence (XAI). For an in-depth discussion on XAI, readers can refer to the paper by Arrieta et al.~\cite{arrieta2019explainable}.
+\\
+\\
+However, reproducibility in the AI research area could also be considered as a separate topic from XAI 
+if the goal is to improve the methods and practices of conducting and reporting AI 
+experiments.
+For example, Pranava et al.~\cite{madhyastha2019model}
+stated that deep neural network-based models are sometimes vulnerable to randomness during the training
+of the models. They investigated the random-seed-based perturbations and proposed a solution
+to mitigate standard deviations of the model performance.
+Pham et al.~\cite{pham2020problems} analyzed the variance in deep learning software systems. With the immense amount of GPU time,
+they use widely-used datasets and models with core DL libraries to perform experiments. Their core contributions are the variance in performance that can be up to 10.8\% and a survey which results suggested that a high percentage of researchers in the area
+are not aware of the variances. 
+Another valuable empirical study is made by Summers et al.~\cite{summers2021nondeterminism}. Their core contribution is that the nondeterminism factors
+result in similar levels of variability.
+Snapp et al.~\cite{snapp2021synthesizing} conducted another empirical study with simple models to analyze the irreproducibility in deep networks.
+They found out that even with the simplest model reproducibility can be a challenge.
+Shallue et al.~\cite{shallue2018measuring} demonstrated the properties of the batch size number and its relation with out-of-sample error. They found that max useful batch size depends on 
+the properties of the model, training algorithm and dataset. 
+Fellicious et al.~\cite{fellicious2020effects} investigated the different optimizers and architectures with respect to varying initial weights.
+As can be seen, there are numerous empirical studies conducted by researchers in recent years.
+Their findings and methods to limit or control randomness will be used in this thesis to test the use cases. 
+We plan to use deterministic execution methods from the literature. It is not our goal to propose a new method. 
+\\
+\\
+A notable contribution to the discourse on reproducibility and the role of randomness was made by Zhuang et al.~\cite{zhuang2022randomness}, who established a benchmark setup to delineate the attributes of tooling in managing randomness. They posited a binary stance on nondeterminism, advocating for its comprehensive control, failing which, they argue, any control exerted becomes moot. Their investigation further revealed a differential sensitivity to randomness across various subsets of datasets. Moreover, they highlighted the substantial overhead incurred by deterministic approaches. An in-depth exploration into hardware and CUDA-induced randomness was undertaken, wherein the sources of randomness were categorized and analyzed in groups relative to different architectures. The distinct factors of implementation and algorithm were individually regulated and juxtaposed against varying architectures, providing a nuanced understanding of the interplay between these elements and randomness.
+In a parallel vein, Chou et al.~\cite{chou2020deterministic} presented a proposition for deterministic execution on GPU platforms, identifying it as a facilitator of reproducibility. This feature will be harnessed in this study to attain deterministic executions whenever there's a necessity to regulate CUDA-induced randomness. Such deterministic controls are instrumental in isolating and understanding the variations in the outcomes, thereby enhancing the reproducibility and interpretability of the results.
+\\
+\\
+In the medical sector, reproducibility is a significant concern, especially in Machine Learning for Health (MLH). McDermott et al.~\cite{mcdermott2021reproducibility} conducted a study to understand the reproducibility challenges in MLH, proposing a taxonomy and defining the broad goals and challenges surrounding reproducibility in this domain. Likewise, Beam et al.~\cite{beam2020challenges} outlined the specific challenges faced when attempting to reproduce machine learning models in healthcare.
+In this thesis, one of the use cases is derived from the medical domain. Although a public dataset is employed for this use case, many tasks in the medical domain are hindered by the lack of publicly available datasets. The accessibility of data is a common issue as, oftentimes, datasets in the medical domain are private due to the sensitive nature of medical data. To investigate such tasks from a reproducibility standpoint, special permissions are required to access the necessary data.
+The unavailability of public datasets not only hampers the reproducibility and validation of machine learning models but also inhibits collaborative research efforts within the community.
+
+
+

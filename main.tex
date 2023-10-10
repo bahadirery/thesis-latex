@@ -4,8 +4,8 @@
 
 % TODO: decide if one-sided/two-sided
 % \documentclass[headsepline,footsepline,footinclude=false,fontsize=11pt,paper=a4,listof=totoc,bibliography=totoc,BCOR=12mm,DIV=12]{scrbook} % two-sided
-\documentclass[headsepline,footsepline,footinclude=True,oneside,fontsize=11pt,paper=a4,listof=totoc,bibliography=totoc]{scrbook} % one-sided
-
+\documentclass[headsepline,footsepline,footinclude=True,oneside,draft,fontsize=11pt,paper=a4,listof=totoc,bibliography=totoc]{scrbook} % one-sided
+% article
 % TODO: change citation style in settings
 \input{settings}
 
@@ -24,8 +24,31 @@
 \newcommand*{\getSubmissionDate}{13.09.2023}
 \newcommand*{\getSubmissionLocation}{Essen}
 
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usepackage{amsmath}
+\usepackage{tabularx}
+\usepackage{todonotes}
+\usepackage{graphicx}
+\usepackage{multirow}
+\usepackage{colortbl}
+\usepackage{array}
+\usepackage{booktabs} % for better horizontal lines
+\usepackage{multirow}
+\usepackage{siunitx}
+\usepackage{hyperref}
+\usepackage{calc}
 
-\def\whatIsIt{Master Thesis}
+
+\definecolor{myred}{rgb}{1,0.8,0.8}
+\definecolor{myyellow}{rgb}{1,1,0.6}
+\definecolor{mygreen}{rgb}{0.8,1,0.8}
+
+
+
+
+
+\def\whatIsIt{Master's Thesis}
 \def\title{Investigating the Impact of Randomness in Reproducibility in Computer Vision}
 \def\subtitle{A Study on Applications in Civil Engineering and Medicine}
 \def\fakultaet{Faculty of Engineering}
@@ -38,7 +61,7 @@
 %\def\semester{Insert Semester and Academic Year}
 
 \def\location{Essen}
-\def\date{Submitted: 13.09.2023}
+\def\date{Submitted: 25.10.2023}
 
 \def\betreuer{Prof. Dr.-Ing. Carolin Birk}
 \def\ersterGutachter{Dr. Mana Mohajer}
@@ -52,12 +75,17 @@
 % Set page numbering to avoid "destination with the same identifier has been already used" warning for cover page.
 % (see https://en.wikibooks.org/wiki/LaTeX/Hyperlinks#Problems_with_Links_and_Pages).
 \pagenumbering{alph}
+
+% Enable numbering for subsubsections
+\setcounter{secnumdepth}{3}
+
 \input{pages/cover}
 
 \frontmatter{}
 
 
 \input{pages/title}
+\input{pages/dedication.tex}
 \input{pages/declaration}
 \input{pages/acknowledgments}
 \input{pages/abstract}
@@ -65,40 +93,63 @@
 \tableofcontents{}
 \microtypesetup{protrusion=true}
 
+\microtypesetup{protrusion=false}
+\listoffigures{}
+\listoftables{}
+\microtypesetup{protrusion=true}
+
+\addchap{Abbreviations}
+\begin{acronym}
+	\itemsep-.25\baselineskip
+	\acro{CPU}[CPU]{Central Processing Unit}
+	\acro{GPU}[GPU]{Graphics Processing Units }
+	\acro{CNN}[CNN]{Convolutional Neural Network}
+	\acro{CUDA}[CUDA]{Compute Unified Device Architecture}
+	% TODO: add acronyms
+\end{acronym}
+
 \mainmatter{}
 
 
 \chapter{Introduction}
 \input{chapters/01_introduction}
 
-\chapter{Chapter Two Title}
-\input{chapters/02_chapter}
+\chapter{Background}
+\label{chapter:02_background}
+\input{chapters/02_background}
 
-%\chapter{Chapter 3}
-%\input{chapters/03chapter}
+\chapter{Literature Review}
+\label{chapter:03_literature_review}
+\input{chapters/03_literature_review}
+
+\chapter{Research Methodology}
+\label{chapter:04_research_methodo}
+\input{chapters/04_research_method}
+
+\chapter{Experiment Results}
+\label{chapter:05_experiment_results}
+\input{chapters/05_experiment_results}
+
+
+\chapter{Environmental Impact}
+\label{chapter:06_enviromental_impact}
+\input{chapters/06_enviromental_impact}
+
+\chapter{Discussion}
+\label{chapter:07_discussion}
+\input{chapters/07_discussion}
 
 \chapter{Conclusion}
-\input{chapters/98_conclusion}
+\label{chapter:08_conclusion}
+\input{chapters/08_conclusion}
 
 \appendix
-\chapter{Appendix Title}
-\input{chapters/99_appendix}
+\chapter{Appendix}
+\input{chapters/09_appendix}
 % TODO: add more chapters here
 
 \appendix{}
 
-\microtypesetup{protrusion=false}
-
-\addchap{Abbreviations}
-\begin{acronym}
-	\itemsep-.25\baselineskip
-	\acro{TUM}[TUM]{Technical University of Munich}
-	% TODO: add acronyms
-\end{acronym}
-
-\listoffigures{}
-\listoftables{}
-\microtypesetup{protrusion=true}
 \printbibliography{}
 
 \end{document}

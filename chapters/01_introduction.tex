@@ -11,134 +11,192 @@
 % E.g. \texttt{\textbackslash ac\{TUM\}, \textbackslash ac\{TUM\}} $\Rightarrow$ \ac{TUM}, \ac{TUM}
 
 % For more details, see the documentation of the \texttt{acronym} package\footnote{\url{https://ctan.org/pkg/acronym}}.
-% \subsection{Subsection}
 
 % See~\autoref{tab:sample}, \autoref{fig:sample-drawing}, \autoref{fig:sample-plot}, \autoref{fig:sample-listing}.
-Deep learning is a branch of machine learning that uses neural networks to learn from
-data and perform tasks such as computer vision, which is the field of study that enables 
-machines to understand and analyze visual information such as images and videos.
-Computer vision algorithms analyze certain criteria in images and videos, and then
-apply interpretations to predictive or decision-making tasks. Most recent computer 
-vision algorithms are deep learning based, as they can leverage the power of multiple
-layers of linear and non-linear operations to extract complex features from the input
-data. Deep learning algorithms use back propagation and weight optimization to adjust
-the network parameters based on the error between the predicted and actual outputs~\cite{testwebsite}.
-However, deep learning and computer vision are not deterministic fields~\cite{zhuang2022randomness}. There are
-various sources of randomness and irreproducibility that can affect the performance 
-and reliability of deep learning models and computer vision algorithms.
+
+Deep learning, a subset of machine learning, employs neural networks to learn from data and execute tasks like computer vision -- the study enabling machines to interpret visual information such as images and videos. Recent computer vision algorithms largely harness deep learning, utilizing its multiple layers of linear and non-linear operations to extract complex features from data. These algorithms adjust network parameters via back propagation and weight optimization based on the error between predicted and actual outputs~\cite{testwebsite}. Despite their prowess, deep learning and computer vision are non-deterministic fields, with various sources of randomness and irreproducibility affecting the performance and reliability of models and algorithms~\cite{zhuang2022randomness}.\\
+
+This chapter initiates a discussion on the role of randomness in deep learning and its impact on reproducibility. It will then transition into the use of Graphics Processing Units (GPUs) in deep learning, emphasizing the importance of investigating the randomness introduced by CUDA execution. Following this, the problem statement concerning the challenges posed by CUDA-induced randomness will be articulated, along with the research objectives aimed at addressing this issue. The chapter will also formulate the research questions that guide this thesis and provide an outline of the thesis structure to give readers an understanding of the sequence of discussions and analyses that follow.\\
+
+\section{Randomness in Deep Learning and its Impact on Reproducibility}
+Randomness plays a crucial role in deep learning world, directly influencing the reproducibility of results. It introduces an element of unpredictability into the training process of neural networks. When randomness is at play, identical input conditions can yield varying outcomes. Such variability necessitates a thorough examination of randomness to ensure reproducibility in machine learning endeavors.\\
+
+In an ideal world, we would want deep learning algorithms to be stable, producing consistent results every time they are run with the same inputs. This stability would make it easier to compare different models, verify results, and build upon previous work. However, in practice, the inherent randomness in many aspects of deep learning—from the initialization of weights to the shuffling of training data—means that even with identical input conditions, we can observe different outcomes. This unpredictability is not just a theoretical concern. In real-world applications, it can lead to significant differences in performance, making it challenging to determine whether a new model or technique is genuinely better or just benefited from a lucky random seed.\\
+\\
+
+In the context of this thesis, we embrace the definition of reproducibility posited by Goodman et al.~\cite{goodman:2016ca}, 
+which emphasizes the ability to replicate results precisely by employing identical data and tools. Reproducibility stands 
+as a foundational pillar of the scientific method. It's paramount in validating results in computer vision tasks, 
+especially when these results influence critical decisions, be it medical diagnoses or assessing the reliability of a structure. 
+Furthermore, reproducibility can streamline computer vision tasks by obviating the need for redundant experiments to validate 
+findings.
+\\
+
+However, lapses in reproducibility within computer vision can erode trust in research outcomes and diminish the perceived 
+reliability of findings. To bolster the credibility of novel methodologies, it's imperative for researchers to be transparent, 
+sharing essential resources like datasets, trained models, training parameters, and evaluation scripts in their publications~\cite{haibe2020transparency}. 
+Such transparency facilitates replication of experiments by peers, fostering validation and furthering progress in the domain. 
+Yet, even with these measures, achieving reproducibility can be fraught with challenges due to myriad factors~\cite{chenetal}.
+\\
+
+Randomness emerges as a primary culprit behind irreproducibility. While there are various sources of randomness and 
+irreproducibility, this work zeroes in on the randomness inherent in deep neural networks. Such randomness can be categorized 
+into two primary types: implementation-level randomness and algorithmic-level randomness~\cite{zhuang2022randomness} which we will look into it later. 
+In deep learning algorithms, randomness is sometimes deliberately introduced to deter the algorithm from merely memorizing data. 
+However, as highlighted earlier, the implications of unchecked randomness can be detrimental.
+\\
+
+\section{The Pervasiveness of GPUs in Deep Learning and the Imperative for Randomness Investigation}
+In the deep learning, the utilization of \ac{GPU} has become increasingly prevalent due 
+to their inherent advantages in handling the computational demands of complex neural networks. As delineated in a study~\cite{5452452} 
+GPUs are particularly adept at managing the large matrices inherent 
+in deep learning tasks, especially in the context of \ac{CNN}~\cite{lecun1995convolutional}. The study showcased that \ac{GPU} 
+implementations not only outperformed their \ac{CPU} counterparts in terms of execution speed but 
+also exhibited superior scalability with increasing network sizes and input dimensions. 
 \\
 \\
-Randomness is in a direct relation with the reproducibility. It introduces an element of unpredictability into the whole training process
-of neural network. When randomness is involved, it means that the same input
-conditions can lead to different outcomes as results. Deliberate investigation
-of this randomness is needed to ensure reproducibility in machine learning. In the thesis, about reproducibility,
-we adopt the meaning used by Goodman et al.~\cite{goodman:2016ca} who says it is the ability to obtain the exact same results, by implementing procedures using the same data
-and tools. Reproducibility is a cornerstone of the scientific method, and it is essential for ensuring that the results
-of computer vision tasks are valid and can be trusted so that the results could be used when giving decisions
-about a patient or reliability of a construction site. Reproducibility can also help to minimize the amount of time and
-resources required for computer vision by reducing the need for additional experimentation to confirm
-results.
+The \ac{CUDA}~\cite{ghorpade2012gpgpu}  by NVIDIA, 
+a proprietary platform tailored for \ac{GPU} programming, further facilitates this by 
+enabling efficient multithreading and access to diverse memory types on the \ac{GPU}. Such computational prowess underscores 
+the rationale behind the growing preference for GPUs in deep learning endeavors, as they offer both speed and efficiency 
+in training and inference tasks. Hence, it is crucial to investigate randomness caused by CUDA execution, given its widespread
+use in deep learning community.
 \\
 \\
-Reproducibility issues in computer vision can have negative consequences, 
-such as unreliable results and reduced confidence in research findings. 
-To ensure that new methods are credible, researchers should share relevant resources such as datasets, 
-trained models, training parameters, and evaluation scripts in their publications. 
-This enables other researchers to replicate the experiments and confirm the results, 
-which can contribute to advancements in the field. Despite these efforts, reproducing 
-the results may still pose challenges due to various factors.~\cite{chenetal}.
+In this work, we embark on a meticulous investigation into the randomness caused by CUDA execution. 
+By maintaining a controlled environment and ensuring deterministic CUDA operations, we aim to delve deep into the trade-offs 
+that emerge. Our approach is holistic: we not only probe the randomness but also assess its tangible impact on 
+experiments conducted across three distinct datasets. It's anticipated that varying settings will yield disparate 
+performance metrics, shedding light on the intricate interplay between task performance, runtime, and computational overheads. 
+This exploration serves as a precursor to a more in-depth analysis, setting the stage for understanding the broader implications 
+of CUDA randomness in deep learning endeavors.
+
+\section{Research Questions} 
+From the research objectives, we can formulate a main research question and three sub-questions as follows:
 \\
 \\
-There are several sources of randomness and irreproducibility. Randomness is a source of irreproducibility.
-We focus on randomness in deep neural networks as a source of irreproducibility. There are implementation level
-randomness and algorithmic level randomness~\cite{zhuang2022randomness}. In deep learning algorithms, some of this randomness is introduced to
-prevent algorithm to memorize the data. However, as stated above, there are obvious drawbacks of the randomness. In this study we aim to use three datasets and make experiments on these
-datasets. In each dataset, we will control deterministic CUDA execution and by fixing other factors we look at the
-trade offs. Namely, we investigate the randomness caused by the CUDA~\cite{ghorpade2012gpgpu} execution. We, then, investigate how the experiments performed out
-in the three datasets we are using. It is expected that at each different settings 
-performance will be different. The trade-off between task performance, runtime, and computation costs will be analyzed.
-Although it is not one of the main goals of this study, we plan to investigate the randomness introduced by the distributed settings as well.
+\textbf{MQ:} \textit{What is the overarching impact of CUDA randomness on the reproducibility and performance of deep learning tasks in computer vision?}
 
-\section{Section}
+\begin{enumerate}
+    \item \textbf{SQ1:} What is the extent of performance variability when controlling for other sources of randomness, while allowing for randomness from CUDA execution to be present?
+    \item \textbf{SQ2:} What is the cost of using deterministic approaches in CUDA randomness?
+    \item \textbf{SQ3:} How does the randomness in Computer Vision impact the task performance and computation cost for specific applications, such as Civil Engineering and Medicine?
+\end{enumerate}
 
-\begin{table}[htpb]
-  \caption[Example table]{An example for a simple table.}\label{tab:sample}
-  \centering
-  \begin{tabular}{l l l l}
-    \toprule
-      A & B & C & D \\
-    \midrule
-      1 & 2 & 1 & 2 \\
-      2 & 3 & 2 & 3 \\
-    \bottomrule
-  \end{tabular}
-\end{table}
+\section{Problem Statement and Research Objectives} 
+
+In the domain of deep learning, particularly within computer vision tasks, the reproducibility of experiments is paramount. 
+However, the inherent non-deterministic nature introduced by CUDA, a parallel computing platform, poses challenges to achieving 
+consistent and reproducible outcomes across different runs. This unpredictability, stemming from CUDA's execution, can compromise 
+the reliability and validity of computer vision algorithms, making it imperative to investigate and understand the depth of its 
+impact. The research objectives can be summarized as follows:
 
 
+\begin{enumerate}
+  \item \textbf{Empirical Examination:} To conduct a thorough empirical analysis on datasets such as CIFAR for image classification, a civil engineering dataset for concrete crack detection, and a medical dataset for breast cancer diagnosis.
+  
+  \item \textbf{Isolation of CUDA's Impact:} To isolate and quantify the effects of CUDA randomness by controlling other potential sources of variability in computer vision experiments.
+  
+  \item \textbf{Deterministic vs. Non-deterministic CUDA Execution:} To systematically compare the outcomes of computer vision algorithms under both deterministic and non-deterministic CUDA settings.
+  
+  \item \textbf{Analysis and Discussion:} To evaluate and discuss the results, drawing insights and implications from the findings.
+  
+  \item \textbf{Establishment of Guidelines:} To formulate guidelines based on the research findings, aiding practitioners in managing and mitigating the effects of CUDA randomness in deep learning tasks.
+\end{enumerate}
 
-\begin{figure}[htpb]
-  \centering
-  % This should probably go into a file in figures/
-  \begin{tikzpicture}[node distance=3cm]
-    \node (R0) {$R_1$};
-    \node (R1) [right of=R0] {$R_2$};
-    \node (R2) [below of=R1] {$R_4$};
-    \node (R3) [below of=R0] {$R_3$};
-    \node (R4) [right of=R1] {$R_5$};
+\section{Structure} 
 
-    \path[every node]
-      (R0) edge (R1)
-      (R0) edge (R3)
-      (R3) edge (R2)
-      (R2) edge (R1)
-      (R1) edge (R4);
-  \end{tikzpicture}
-  \caption[Example drawing]{An example for a simple drawing.}\label{fig:sample-drawing}
-\end{figure}
+Starting with \textbf{Background}, this section establishes a strong foundation by explaining the important background and theoretical concepts. It ensures that readers have a clear understanding of the context, making subsequent sections more accessible and meaningful.\\
 
-\begin{figure}[htpb]
-  \centering
+Following that, the \textbf{Literature Review} delves into the big landscape of prior work, spotlighting relevant studies and experimental findings. By understanding the existing body of knowledge, we can better appreciate the novelty and significance of the presented research.\\
 
-  \pgfplotstableset{col sep=&, row sep=\\}
-  % This should probably go into a file in data/
-  \pgfplotstableread{
-    a & b    \\
-    1 & 1000 \\
-    2 & 1500 \\
-    3 & 1600 \\
-  }\exampleA
-  \pgfplotstableread{
-    a & b    \\
-    1 & 1200 \\
-    2 & 800 \\
-    3 & 1400 \\
-  }\exampleB
-  % This should probably go into a file in figures/
-  \begin{tikzpicture}
-    \begin{axis}[
-        ymin=0,
-        legend style={legend pos=south east},
-        grid,
-        thick,
-        ylabel=Y,
-        xlabel=X
-      ]
-      \addplot table[x=a, y=b]{\exampleA};
-      \addlegendentry{Example A};
-      \addplot table[x=a, y=b]{\exampleB};
-      \addlegendentry{Example B};
-    \end{axis}
-  \end{tikzpicture}
-  \caption[Example plot]{An example for a simple plot.}\label{fig:sample-plot}
-\end{figure}
+The \textbf{Research Methodology} illuminates the chosen research approach, guiding readers through the methodology and design principles of the experiments. This section emphasizes the rigor and credibility of the conducted research, allowing for reproducibility and validation by peers.\\
 
-\begin{figure}[htpb]
-  \centering
-  \begin{tabular}{c}
-  \begin{lstlisting}[language=SQL]
-    SELECT * FROM tbl WHERE tbl.str = "str"
-  \end{lstlisting}
-  \end{tabular}
-  \caption[Example listing]{An example for a source code listing.}\label{fig:sample-listing}
-\end{figure}
+In the \textbf{Experiment Results}, there's a transparent showcase of the raw outcomes from the experiments. All findings are summarized and presented in a meaningful manner. Observations are made to provide context, allowing readers to form their own interpretations based on the presented data.\\
 
+The \textbf{Environmental Impact} addresses the increasingly crucial aspect of ecological responsibility. In a world grappling with environmental challenges, it's imperative to understand and report how the experiments align with sustainable practices, particularly in terms of power consumption.\\
+
+The \textbf{Discussion} provides the interpretations to extrapolate the broader implications of the results. This section aims to connect the dots, pinpointing key takeaways, acknowledging the study's limitations, and opening the way for further research avenues that could potentially refine or expand upon the findings.\\
+
+Finally, the \textbf{Conclusion} summarizes the main points of the thesis. It offers a concise recap of the findings and suggests how they might be applied in practical scenarios.
+
+% \begin{table}[htpb]
+%   \caption[Example table]{An example for a simple table.}\label{tab:sample}
+%   \centering
+%   \begin{tabular}{l l l l}
+%     \toprule
+%       A & B & C & D \\
+%     \midrule
+%       1 & 2 & 1 & 2 \\
+%       2 & 3 & 2 & 3 \\
+%     \bottomrule
+%   \end{tabular}
+% \end{table}
+
+
+
+% \begin{figure}[htpb]
+%   \centering
+%   % This should probably go into a file in figures/
+%   \begin{tikzpicture}[node distance=3cm]
+%     \node (R0) {$R_1$};
+%     \node (R1) [right of=R0] {$R_2$};
+%     \node (R2) [below of=R1] {$R_4$};
+%     \node (R3) [below of=R0] {$R_3$};
+%     \node (R4) [right of=R1] {$R_5$};
+
+%     \path[every node]
+%       (R0) edge (R1)
+%       (R0) edge (R3)
+%       (R3) edge (R2)
+%       (R2) edge (R1)
+%       (R1) edge (R4);
+%   \end{tikzpicture}
+%   \caption[Example drawing]{An example for a simple drawing.}\label{fig:sample-drawing}
+% \end{figure}
+
+% \begin{figure}[htpb]
+%   \centering
+
+%   \pgfplotstableset{col sep=&, row sep=\\}
+%   % This should probably go into a file in data/
+%   \pgfplotstableread{
+%     a & b    \\
+%     1 & 1000 \\
+%     2 & 1500 \\
+%     3 & 1600 \\
+%   }\exampleA
+%   \pgfplotstableread{
+%     a & b    \\
+%     1 & 1200 \\
+%     2 & 800 \\
+%     3 & 1400 \\
+%   }\exampleB
+%   % This should probably go into a file in figures/
+%   \begin{tikzpicture}
+%     \begin{axis}[
+%         ymin=0,
+%         legend style={legend pos=south east},
+%         grid,
+%         thick,
+%         ylabel=Y,
+%         xlabel=X
+%       ]
+%       \addplot table[x=a, y=b]{\exampleA};
+%       \addlegendentry{Example A};
+%       \addplot table[x=a, y=b]{\exampleB};
+%       \addlegendentry{Example B};
+%     \end{axis}
+%   \end{tikzpicture}
+%   \caption[Example plot]{An example for a simple plot.}\label{fig:sample-plot}
+% \end{figure}
+
+% \begin{figure}[htpb]
+%   \centering
+%   \begin{tabular}{c}
+%   \begin{lstlisting}[language=SQL]
+%     SELECT * FROM tbl WHERE tbl.str = "str"
+%   \end{lstlisting}
+%   \end{tabular}
+%   \caption[Example listing]{An example for a source code listing.}\label{fig:sample-listing}
+% \end{figure}

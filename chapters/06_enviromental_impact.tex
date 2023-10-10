@@ -1,0 +1,22 @@
+% !TeX root = ../main.tex
+
+In scientific research, it is crucial to consider not only the direct results of experiments but also the broader implications and consequences of the research process. While the following environmental assessment is not directly tied to our primary results, it represents an essential facet of our experiments. We believe it is our responsibility to report on the environmental footprint of our work, given the increasing global emphasis on sustainability and the environmental impact of computational practices. Furthermore, we posit that the environmental implications of computational experiments are becoming increasingly significant in the context of sustainable research practices. This perspective aligns with the findings of Ulmer et al.,~\cite{ulmer-etal-2022-experimental}, emphasizing the importance of understanding and reporting the environmental consequences of experimental work.\\
+
+Our experiments were conducted using High-Performance Computing (HPC) resources located in Essen, Germany. The region's electricity generation has a carbon efficiency of \(0.385 \, \text{kgCO}_2\text{eq/kWh}\)~\cite{ourworldindata2023}, with approximately \(43\%\)~\cite{statista2022energy} of the electricity being sourced from fossil fuels. To estimate the carbon footprint of our experiments, we utilized the Machine Learning Impact calculator, as presented by Lacoste et al.,~\cite{DBLP:journals/corr/abs-1910-09700}. This calculator provides a comprehensive framework to quantify the carbon emissions associated with machine learning experiments, considering both the energy consumption of computational resources and the carbon efficiency of the electricity source.
+
+\begin{table}[htbp]
+    \centering
+    \caption{Energy Consumption and \(\text{CO}_2\) Emission for Different Tasks}
+    \label{tab:energy_consumption}
+    \begin{tabularx}{\textwidth}{lXXXXX}
+        \toprule
+        Run Type & Cifar-10 (kWh) & CBIS-DDSM (kWh) & SDNET (kWh) & SUM (kWh) & CO2 (kg) \\
+        \midrule
+        Experiment runs & 23.42 & 33.02 & 21.25 & 77.69 & 29.91 \\
+        All runs & 85.16 & 109.91 & 38.07 & 233.141 & 89.86 \\
+        \bottomrule
+    \end{tabularx}
+  \end{table}
+  
+
+From Table \ref{tab:energy_consumption}, it is evident that while the energy consumption and associated carbon emissions for the reported experiments (``Experiment runs'') are significant, the overall environmental impact is considerably higher when accounting for all computational activities, including tests, debugging, and experimental setups (``All runs''). This highlights the broader environmental cost of the entire research process, not just the final reported results. It underscores the importance of energy-efficient algorithms and practices in machine learning research, especially in regions heavily reliant on fossil fuels for electricity generation.
